@@ -1,0 +1,5 @@
+provider: dimensiondata
+connection:
+    key: my_key
+    secret: my_password!
+    region: dd-au

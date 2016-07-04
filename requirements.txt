@@ -1,0 +1,4 @@
+apache-libcloud>=1.0.0
+certifi
+pyyaml
+backports.ssl-match-hostname

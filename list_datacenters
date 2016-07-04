@@ -1,0 +1,24 @@
+#!/usr/bin/python
+
+from libcloud.compute.providers import get_driver
+import yaml
+import json
+
+
+def _to_location(loc):
+    return {
+        'id': loc.id,
+        'name': loc.name
+    }
+
+config = {}
+with open('config.yaml', 'r') as file:
+    config_text = file.read()
+    config = yaml.load(config_text)
+
+
+cls = get_driver(config['provider'])
+driver = cls(**config['connection'])
+locations = [_to_location(loc) for loc in driver.list_locations()]
+
+print(json.dumps(locations))
