@@ -1,0 +1,5 @@
+provider: ecs
+connection:
+    key: my_access_key_id
+    secret: my_access_key_secret!
+    region: cn-hangzhou

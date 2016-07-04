@@ -1,0 +1,6 @@
+provider: cloudstack
+connection:
+    key: my_access_key_id
+    secret: my_access_key_secret!
+    host: my.cloudstack.com
+    path: /client/api

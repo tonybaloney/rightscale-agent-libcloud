@@ -20,3 +20,5 @@ connection:
     secret: my_PASsword!
     region: dd-au
 ```
+
+__`config.yaml`__ must live in the UCA bin directory, not the plugin directory.
