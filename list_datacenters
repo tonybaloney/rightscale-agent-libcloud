@@ -1,8 +1,6 @@
 #!/usr/bin/python
-
-from libcloud.compute.providers import get_driver
-import yaml
 import json
+from rightscale import get_connection
 
 
 def _to_location(loc):
@@ -11,14 +9,7 @@ def _to_location(loc):
         'name': loc.name
     }
 
-config = {}
-with open('config.yaml', 'r') as file:
-    config_text = file.read()
-    config = yaml.load(config_text)
-
-
-cls = get_driver(config['provider'])
-driver = cls(**config['connection'])
+driver = get_connection()
 locations = [_to_location(loc) for loc in driver.list_locations()]
 
 print(json.dumps(locations))
