@@ -1,6 +1,8 @@
 from libcloud.compute.providers import get_driver
 import yaml
 
+import logging
+logging.basicConfig(filename='libcloud.log',level=logging.DEBUG)
 
 def get_connection():
     config = {}

@@ -1,0 +1,31 @@
+#!/usr/bin/python
+import json
+import logging
+import traceback
+from rightscale import get_connection
+
+
+def _to_instance(instance, loc):
+    return {
+        'id': instance.id,
+        'name': instance.name,
+        'state': 'running',
+        'image_id': instance.image.id if instance.image is not None else None,
+        'datacenter_id': loc.id,
+        'instance_type_id': instance.size.id if instance.size is not None else None
+    }
+
+try:
+    driver = get_connection()
+    instances = []
+    locations = driver.list_locations()
+    print(locations)
+    for location in locations:
+        instances.extend([_to_instance(i, location)
+                          for i in driver.list_nodes(ex_location=location)])
+
+    print(json.dumps(instances))
+    exit(0)
+
+except Exception as e:
+    logging.error(traceback.format_exc())
