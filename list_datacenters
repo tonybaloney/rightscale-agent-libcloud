@@ -2,8 +2,11 @@
 import json
 import traceback
 import logging
-
+import sys
 from rightscale import get_connection
+
+logging.info("Listing datacenters with parameters : %s", str(sys.argv))
+
 
 def _to_location(loc):
         return {

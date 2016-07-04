@@ -2,7 +2,10 @@
 import json
 import logging
 import traceback
+import sys
 from rightscale import get_connection
+
+logging.info("Listing images with parameters : %s", str(sys.argv))
 
 
 def _to_image(image):
