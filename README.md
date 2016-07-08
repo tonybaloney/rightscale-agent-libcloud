@@ -22,3 +22,20 @@ connection:
 ```
 
 __`config.yaml`__ must live in the UCA bin directory, not the plugin directory.
+
+## Mapping driver specific values
+
+Libcloud supports a dictionary called __extra__ in the `Node` class. You can map the values of these to RightScale instance values using a map
+attribute in __`config.yaml`__.
+
+For example:
+
+```yaml
+maps:
+    list_instances:
+        created_at: "deployedTime"
+        memory_mb: "memoryMb"
+        os_platform: "OS_type"
+```
+
+The key represents the key in RightScale and the value represents the key in Libcloud
