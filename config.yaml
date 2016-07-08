@@ -1,5 +1,10 @@
 provider: dimensiondata
 connection:
-    key: my_key
-    secret: my_password!
+    key: jazz
+    secret: hands!
     region: dd-au
+maps:
+    list_instances:
+        created_at: "deployedTime"
+        memory_mb: "memoryMb"
+        os_platform: "OS_type" 
