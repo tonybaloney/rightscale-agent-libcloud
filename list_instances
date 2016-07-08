@@ -1,31 +1,43 @@
 #!/usr/bin/python
+"""
+List instances available in configured cloud.
+
+Edit config.yaml to configure driver and connection settings.
+"""
 import json
 import logging
 import traceback
 import sys
-from rightscale import get_connection
+import rightscale
 
 logging.info("Listing instances with parameters : %s", str(sys.argv))
 
-def _to_instance(instance, loc):
-    return {
-        'id': instance.id,
-        'name': instance.name,
+CONFIG = rightscale.get_configuration()
+
+
+def _to_instance(libcloud_instance, loc):
+    rightscale_instance = {
+        'id': libcloud_instance.id,
+        'name': libcloud_instance.name,
         'state': 'running',
-        'image_id': instance.image.id if instance.image is not None else None,
+        'image_id': libcloud_instance.image.id
+                    if libcloud_instance.image is not None else None,
         'datacenter_id': loc.id,
-        'instance_type_id': instance.size.id if instance.size is not None else None
+        'instance_type_id': libcloud_instance.size.id
+                            if libcloud_instance.size is not None else None
     }
+    return rightscale.map(CONFIG, 'list_instances',
+                          rightscale_instance, libcloud_instance.extra)
 
 try:
-    driver = get_connection()
-    instances = []
-    locations = driver.list_locations()
-    for location in locations:
-        instances.extend([_to_instance(i, location)
-                          for i in driver.list_nodes(ex_location=location)])
+    DRIVER = rightscale.get_connection(CONFIG)
+    INSTANCES = []
+    LOCATIONS = DRIVER.list_locations()
+    for location in LOCATIONS:
+        INSTANCES.extend([_to_instance(i, location)
+                          for i in DRIVER.list_nodes(ex_location=location)])
 
-    print(json.dumps(instances))
+    print(json.dumps(INSTANCES))
     exit(0)
 
 except Exception as e:

@@ -1,4 +1,9 @@
 #!/usr/bin/python
+"""
+List instance types available in configured cloud.
+
+Edit config.yaml to configure driver and connection settings.
+"""
 import json
 import logging
 import traceback
@@ -7,6 +12,7 @@ from rightscale import get_connection
 
 
 logging.info("Listing instances types with parameters : %s", str(sys.argv))
+
 
 def _to_instance_type(size):
     return {
@@ -18,6 +24,7 @@ def _to_instance_type(size):
         'memory': 500,
         'local_disk_size': 500
     }
+
 
 try:
     driver = get_connection()

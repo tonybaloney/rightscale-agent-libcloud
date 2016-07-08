@@ -1,4 +1,9 @@
 #!/usr/bin/python
+"""
+List images available in configured cloud.
+
+Edit config.yaml to configure driver and connection settings.
+"""
 import json
 import logging
 import traceback
@@ -16,10 +21,10 @@ def _to_image(image):
     }
 
 try:
-    driver = get_connection()
-    images = [_to_image(i) for i in driver.list_images()]
+    DRIVER = get_connection()
+    IMAGES = [_to_image(i) for i in DRIVER.list_images()]
 
-    print(json.dumps(images))
+    print(json.dumps(IMAGES))
     exit(0)
 
 except Exception as e:
